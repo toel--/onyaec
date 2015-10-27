@@ -65,7 +65,7 @@ public class Excel97Writer extends Common implements WriterIF {
         titleStyle.setFont(font);
 
         String sheetName = getConfigValue("Excel", "sheet", null);
-        if (sheetName==null) sheetName=FileUtils.getFileNameWithoutExtention(filepath);
+        if (sheetName==null || sheetName.isEmpty()) sheetName=FileUtils.getFileNameWithoutExtention(filepath);
         sheet = wb.createSheet(sheetName);
         if (getConfigValue("Excel", "freezeFirstRow", "true").equalsIgnoreCase("true")) {
             sheet.createFreezePane(0,1);

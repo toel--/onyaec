@@ -45,7 +45,7 @@ public class MainTest {
     public void testTxt2xls() {
         
         System.out.println("txt2xls");
-        String[] args = {"data/samples/ELANDERS_DE_CustomerChangesEnrichmentKP17_2015-10-13.txt", "build/test/ELANDERS_DE_CustomerChangesEnrichmentKP17_2015-10-13.xls"};
+        String[] args = {"data/samples/ELANDERS_DE_CustomerChangesEnrichmentKP17_2015-10-13.txt", "build/test/txt2xls.xls"};
         Main.main(args);
         
         assert(FileUtils.checkCanReadFile(args[1]));
@@ -60,7 +60,22 @@ public class MainTest {
     public void testTxt2xlsx() {
         
         System.out.println("txt2xlsx");
-        String[] args = {"data/samples/ELANDERS_DE_CustomerChangesEnrichmentKP17_2015-10-13.txt", "build/test/ELANDERS_DE_CustomerChangesEnrichmentKP17_2015-10-13.xlsx"};
+        String[] args = {"data/samples/ELANDERS_DE_CustomerChangesEnrichmentKP17_2015-10-13.txt", "build/test/txt2xlsx.xlsx"};
+        Main.main(args);
+        
+        assert(FileUtils.checkCanReadFile(args[1]));
+        
+        
+    }
+    
+    /**
+     * Test of main method, of class Main.
+     */
+    @Test
+    public void testXlsx2xls() {
+        
+        System.out.println("xlsx2xls");
+        String[] args = {"data/samples/ELANDERS_DE_CustomerChangesEnrichmentKP17_2015-10-13.xlsx", "build/test/xlsx2xls.xls"};
         Main.main(args);
         
         assert(FileUtils.checkCanReadFile(args[1]));

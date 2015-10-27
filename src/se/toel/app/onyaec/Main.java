@@ -5,9 +5,9 @@
 package se.toel.app.onyaec;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import se.toel.app.onyaec.impl.Excel97Writer;
+import se.toel.app.onyaec.impl.ExcelReader;
 import se.toel.app.onyaec.impl.ExcelWriter;
 import se.toel.app.onyaec.impl.TextReader;
 import se.toel.util.Closer;
@@ -63,6 +63,7 @@ public class Main {
             
             switch (from) {
                 case "txt": reader = new TextReader(ini, conf); break;
+                case "xls": case "xlsx": reader = new ExcelReader(ini, conf); break;
                 default: abort("source file type '"+from+"' not supported");
             }
             
@@ -102,7 +103,7 @@ public class Main {
         System.out.println("  Syntax:");
         System.out.println("    java -jar onyaec [params] [src] [dst]");
         System.out.println("  where:");
-        System.out.println("    [params] to override the value in the config.ini file. ex: -encoding:UTF-8 -excelBoldFirstRow:true -excelFreezeFirstRow:true");
+        System.out.println("    [params] to override the value in the config.ini file. ex: -encoding:UTF-8 -boldFirstRow:true -freezeFirstRow:true");
         System.out.println("    [src] the source file");
         System.out.println("    [dst] the destination file");
         System.exit(1);

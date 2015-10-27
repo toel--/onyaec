@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.List;
 import java.util.Map;
 import se.toel.util.IniFile;
 
@@ -20,7 +19,7 @@ import se.toel.util.IniFile;
 public class TextReader extends Common implements ReaderIF {
 
     private BufferedReader br;
-    private String separator;
+    private final String separator;
     
     /***************************************************************************
      * Constructor
