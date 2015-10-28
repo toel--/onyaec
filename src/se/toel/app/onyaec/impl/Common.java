@@ -35,13 +35,42 @@ public class Common {
         
     }
     
-    protected String getSeparator() {
-        String s = getConfigValue("Text", "separator", "tab");
+    protected String getSeparator(boolean isWriter) {
+        String key = "separator";
+        String s = null;
+        if (isWriter) {
+            s = getConfigValue("Text", key+"_2", null);
+        }
+        if (s==null) s = getConfigValue("Text", key, "tab");
         switch (s) {
             case "tab": s="\t"; break;
             case "comma": s=","; break;
             case "semicolon": s=";"; break;
         }
+        return s;
+    }
+    
+    protected String getEndOfLine(boolean isWriter) {
+        String key = "endOfLine";
+        String s = null;
+        if (isWriter) {
+            s = getConfigValue("Text", key+"_2", null);
+        }
+        if (s==null) s = getConfigValue("Text", key, "CRLF");
+        switch (s) {
+            case "CRLF": s="\r\n"; break;
+            case "LF": s="\n"; break;
+        }
+        return s;
+    }
+    
+    protected String getEncoding(boolean isWriter) {
+        String key = "encoding";
+        String s = null;
+        if (isWriter) {
+            s = getConfigValue("Text", key+"_2", null);
+        }
+        if (s==null) s = getConfigValue("Text", key, "UTF-8");
         return s;
     }
     

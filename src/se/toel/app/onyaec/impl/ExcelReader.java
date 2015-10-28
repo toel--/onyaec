@@ -142,6 +142,7 @@ public class ExcelReader extends Common implements ReaderIF {
             case Cell.CELL_TYPE_NUMERIC:
                 if(DateUtil.isCellDateFormatted(cell)) {
                     value = sdf.format(cell.getDateCellValue());
+                    value = value.replace(" 00:00:00", "");
                 } else {
                     double d = cell.getNumericCellValue();
                     value = String.valueOf(d);

@@ -30,7 +30,7 @@ public class TextReader extends Common implements ReaderIF {
     public TextReader(IniFile ini, Map<String, String> conf) {
         this.ini = ini;
         this.conf = conf;
-        separator = getSeparator();
+        separator = getSeparator(false);
     }
     
     /***************************************************************************
@@ -39,7 +39,7 @@ public class TextReader extends Common implements ReaderIF {
     @Override
     public void open(String filepath) throws Exception {
         
-        String encoding = getConfigValue("Text", "encoding", "UTF-8");
+        String encoding = getEncoding(false);
         Reader isr = new InputStreamReader(new FileInputStream(filepath), encoding);
         br = new BufferedReader(isr);
         

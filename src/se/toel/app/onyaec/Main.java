@@ -10,6 +10,7 @@ import se.toel.app.onyaec.impl.Excel97Writer;
 import se.toel.app.onyaec.impl.ExcelReader;
 import se.toel.app.onyaec.impl.ExcelWriter;
 import se.toel.app.onyaec.impl.TextReader;
+import se.toel.app.onyaec.impl.TextWriter;
 import se.toel.util.Closer;
 import se.toel.util.Dev;
 import se.toel.util.FileUtils;
@@ -33,8 +34,28 @@ public class Main {
             showUsage();
         } else {
             
-            String src = args[args.length-2];
-            String dst = args[args.length-1];
+            String src = null;
+            String dst = null;
+            
+            for (int i=0; i<args.length; i++) {
+                
+                String s = args[i];
+                if (s.startsWith("-")) {
+                    String[] ss = s.split(":");
+                    if (ss.length==2) {
+                        String key=ss[0].substring(1);
+                        String value=ss[1];
+                        if (conf.containsKey(key)) {
+                            key += "_2";
+                        }
+                        conf.put(key, value);
+                    }
+                } else {
+                    if (s.contains(".")) {
+                        if (src==null) src=s; else dst=s;
+                    }
+                }
+            }
             
             if (!FileUtils.checkCanReadFile(src)) {
                 abort("Can not find source file "+src);
@@ -43,15 +64,7 @@ public class Main {
                 abort("Can not find target directory for destination file "+dst);
             }
             
-            for (int i=0; i<args.length-2; i++) {
-                
-                String s = args[i];
-                String[] ss = s.split(":");
-                if (ss.length==2) {
-                    conf.put(ss[0].substring(1), ss[1]);
-                }
-                
-            }
+            
             
             String from = FileUtils.getFileNameExtention(src.toLowerCase());
             String to = FileUtils.getFileNameExtention(dst.toLowerCase());
@@ -70,6 +83,7 @@ public class Main {
             switch (to) {
                 case "xls": writer = new Excel97Writer(ini, conf); break;
                 case "xlsx": writer = new ExcelWriter(ini, conf); break;
+                case "txt": writer = new TextWriter(ini, conf); break;
                 default: abort("destination file type "+to+" not supported");
             }
             

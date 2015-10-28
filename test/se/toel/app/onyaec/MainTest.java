@@ -83,4 +83,34 @@ public class MainTest {
         
     }
     
+    /**
+     * Test of main method, of class Main.
+     */
+    @Test
+    public void testXlsx2txt() {
+        
+        System.out.println("xlsx2txt");
+        String[] args = {"data/samples/ELANDERS_DE_CustomerChangesEnrichmentKP17_2015-10-13.xlsx", "build/test/xlsx2txt.txt"};
+        Main.main(args);
+        
+        assert(FileUtils.checkCanReadFile(args[1]));
+        
+        
+    }
+    
+    /**
+     * Test of main method, of class Main.
+     */
+    @Test
+    public void testText2text() {
+        
+        System.out.println("Text2text");
+        String[] args = {"-separator:tab", "data/samples/text/tab.txt", "-separator:comma", "build/test/comma.txt"};
+        Main.main(args);
+        
+        assert(FileUtils.checkCanReadFile(args[3]));
+        
+        
+    }
+    
 }
