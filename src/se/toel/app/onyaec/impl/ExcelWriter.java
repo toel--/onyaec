@@ -34,6 +34,7 @@ public class ExcelWriter extends Common implements WriterIF {
     private XSSFCellStyle titleStyle;
     private XSSFSheet sheet;
     int line=0;
+    int nbCols=0;
     
     /***************************************************************************
      * Constructor
@@ -90,6 +91,7 @@ public class ExcelWriter extends Common implements WriterIF {
         XSSFCell cell;
         int x = 0;
         
+        if (values.length>nbCols) nbCols=values.length;
         boolean firstRow = (line==0);
         boolean bold = getConfigValue("Excel", "boldFirstRow", "true").equalsIgnoreCase("true");
         x=0;
@@ -104,6 +106,11 @@ public class ExcelWriter extends Common implements WriterIF {
 
     @Override
     public void close() throws IOException {
+        
+        // Resize columns
+        for (int i=0; i<nbCols; i++) {
+            sheet.autoSizeColumn(i);
+        }
         
         // Save the Excel file
         try (FileOutputStream fos = new FileOutputStream(filepath)) {
