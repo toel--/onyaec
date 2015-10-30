@@ -22,6 +22,8 @@ import se.toel.util.IniFile;
  */
 public class Main {
 
+    private static final String ver="1.0.0";
+    
     /**
      * @param args the command line arguments
      */
@@ -112,7 +114,7 @@ public class Main {
     
     private static void showUsage() {
         
-        System.out.println("onyaec (Oh no! Yet another Excel converter) ver 0.1.0");
+        System.out.println("onyaec (Oh no! Yet another Excel converter) ver "+ver);
         System.out.println("  Toël Hartmann 2015");
         System.out.println("  Syntax:");
         System.out.println("    java -jar onyaec [params] [src] [dst]");
