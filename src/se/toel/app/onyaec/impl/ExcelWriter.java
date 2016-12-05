@@ -19,6 +19,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import se.toel.util.Dev;
 import se.toel.util.FileUtils;
 import se.toel.util.IniFile;
+import se.toel.util.StringUtil;
 
 /**
  *
@@ -98,7 +99,11 @@ public class ExcelWriter extends Common implements WriterIF {
         XSSFRow xssfrow = sheet.createRow(line++);
         for (String value : values) {
             cell = xssfrow.createCell(x++);
-            cell.setCellValue(value);
+            if (StringUtil.isNumeric(value)) {
+                cell.setCellValue(Double.parseDouble(value));
+            } else {
+                cell.setCellValue(value);
+            }
             if (firstRow && bold) cell.setCellStyle(titleStyle);
         }
             
