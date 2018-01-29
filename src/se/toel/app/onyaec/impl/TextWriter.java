@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Map;
+import org.apache.poi.ss.usermodel.Workbook;
 import se.toel.util.IniFile;
 
 /**
@@ -63,6 +64,11 @@ public class TextWriter extends Common implements WriterIF {
         
         bw.close();
         
+    }
+
+    @Override
+    public Workbook getWorkbook() {
+        throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /***************************************************************************

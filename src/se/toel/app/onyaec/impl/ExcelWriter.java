@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import org.apache.poi.POIXMLProperties;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -34,8 +35,8 @@ public class ExcelWriter extends Common implements WriterIF {
     private XSSFWorkbook wb;
     private XSSFCellStyle titleStyle;
     private XSSFSheet sheet;
-    int line=0;
-    int nbCols=0;
+    int line = 0;
+    int nbCols = 0;
     
     /***************************************************************************
      * Constructor
@@ -79,10 +80,21 @@ public class ExcelWriter extends Common implements WriterIF {
 
         String sheetName = getConfigValue("Excel", "sheet", null);
         if (sheetName==null || sheetName.isEmpty()) sheetName=FileUtils.getFileNameWithoutExtention(filepath);
-        sheet = wb.createSheet(sheetName);
-        if (getConfigValue("Excel", "freezeFirstRow", "true").equalsIgnoreCase("true")) {
-            sheet.createFreezePane(0,1);
+        selectSheet(sheetName);
+        
+    }
+    
+    
+    public void selectSheet(String sheetName) throws Exception {
+        
+        sheet = wb.getSheet(sheetName);
+        if (sheet==null) {
+            sheet = wb.createSheet(sheetName);
+            if (getConfigValue("Excel", "freezeFirstRow", "true").equalsIgnoreCase("true")) {
+                sheet.createFreezePane(0,1);
+            }
         }
+        line = 0;
         
     }
 
@@ -99,7 +111,7 @@ public class ExcelWriter extends Common implements WriterIF {
         XSSFRow xssfrow = sheet.createRow(line++);
         for (String value : values) {
             cell = xssfrow.createCell(x++);
-            if (StringUtil.isNumeric(value)) {
+            if (!value.equals(",") && !value.equals("-") && !value.equals(".") && StringUtil.isNumeric(value)) {
                 cell.setCellValue(Double.parseDouble(value));
             } else {
                 cell.setCellValue(value);
@@ -123,6 +135,12 @@ public class ExcelWriter extends Common implements WriterIF {
         } catch (Exception e) {
             Dev.error("While saving", e);
         }
+        
+    }
+    
+    public Workbook getWorkbook() {
+     
+        return wb;
         
     }
     

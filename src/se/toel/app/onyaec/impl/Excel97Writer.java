@@ -14,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import se.toel.util.FileUtils;
 import se.toel.util.IniFile;
 
@@ -106,6 +107,11 @@ public class Excel97Writer extends Common implements WriterIF {
             wb.write(fos);
         }
         
+    }
+
+    @Override
+    public Workbook getWorkbook() {
+        return wb;
     }
     
     /***************************************************************************
